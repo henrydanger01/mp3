@@ -140,7 +140,7 @@
 <body>
 
     <nav>
-        <h1 id="pageTitle">Music</h1>
+        <h1 id="pageTitle">JasonHub Music</h1>
         <button id="uploadButtonNavbar" onclick="uploadFile()">
             <i class="fa-solid fa-cloud-upload" style="font-size: 50px;"></i>
         </button>
@@ -291,6 +291,23 @@
         }
     </script>
 
+<div id="playerControls">
+    <button class="controlButton" onclick="skipSeconds(-5)">
+        <i class="fa-solid fa-backward"></i> Skip Backward
+    </button>
+    <button class="controlButton" onclick="togglePlayPause()">
+        <i id="playPauseIcon" class="fa-solid fa-pause"></i> Play/Pause
+    </button>
+    <button class="controlButton" onclick="skipSeconds(5)">
+        Skip Forward <i class="fa-solid fa-forward"></i>
+    </button>
+    <button class="controlButton" onclick="toggleLoop()" id="loopButton">
+        <i class="fa-solid fa-repeat"></i> Loop
+    </button>
+    <input type="range" id="volumeControl" value="100" onchange="adjustVolume()">
+</div>
+
+    
 </body>
 
 </html>
