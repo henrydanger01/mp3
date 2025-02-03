@@ -45,13 +45,6 @@
             align-items: center;
         }
 
-        #uploadButtonContainer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px; /* Adjust the margin as needed */
-        }
-
         #audioPlayer {
             display: none;
             width: 100%;
@@ -104,13 +97,6 @@
             text-align: center;
         }
 
-        #recentSongsContainer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
         main {
             margin-top: 60px;
             width: 100%;
@@ -147,11 +133,9 @@
     </nav>
 
     <main>
-        <div id="uploadButtonContainer">
-            <label for="mp3File" id="customButton">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
-            </label>
-        </div>
+        <label for="mp3File" id="customButton">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+        </label>
 
         <input type="file" id="mp3File" accept=".mp3">
 
@@ -170,15 +154,16 @@
                 Skip Forward <i class="fa-solid fa-forward"></i>
             </button>
             <input type="range" id="volumeControl" value="100" onchange="adjustVolume()">
+            <button class="controlButton" onclick="toggleLoop()">
+                <i id="loopIcon" class="fa-solid fa-sync-alt"></i> Loop
+            </button>
         </div>
 
         <div id="fileTitle"></div>
 
         <div id="recentSongs">
             <h2>Recently Played</h2>
-            <div id="recentSongsContainer">
-                <ul id="musicList"></ul>
-            </div>
+            <ul id="musicList"></ul>
         </div>
     </main>
 
@@ -246,7 +231,6 @@
         }
 
         function uploadFile() {
-            // Clear the current song and allow the user to upload a new one
             var audioPlayer = document.getElementById('audioPlayer');
             var customButton = document.getElementById('customButton');
             var playerControls = document.getElementById('playerControls');
@@ -263,7 +247,6 @@
             customButton.style.display = 'block';
             fileTitle.innerText = '';
 
-            // Allow the user to upload a new song
             document.getElementById('mp3File').value = '';
         }
 
@@ -289,28 +272,24 @@
             playPauseIcon.classList.remove('fa-play');
             playPauseIcon.classList.add('fa-pause');
         }
+
+        function toggleLoop() {
+            var audioPlayer = document.getElementById('audioPlayer');
+            var loopIcon = document.getElementById('loopIcon');
+
+            if (audioPlayer.loop) {
+                audioPlayer.loop = false;
+                loopIcon.classList.remove('fa-sync-alt');
+                loopIcon.classList.add('fa-sync');
+            } else {
+                audioPlayer.loop = true;
+                loopIcon.classList.remove('fa-sync');
+                loopIcon.classList.add('fa-sync-alt');
+            }
+        }
     </script>
-
-<div id="playerControls">
-    <button class="controlButton" onclick="skipSeconds(-5)">
-        <i class="fa-solid fa-backward"></i> Skip Backward
-    </button>
-    <button class="controlButton" onclick="togglePlayPause()">
-        <i id="playPauseIcon" class="fa-solid fa-pause"></i> Play/Pause
-    </button>
-    <button class="controlButton" onclick="skipSeconds(5)">
-        Skip Forward <i class="fa-solid fa-forward"></i>
-    </button>
-    <button class="controlButton" onclick="toggleLoop()" id="loopButton">
-        <i class="fa-solid fa-repeat"></i> Loop
-    </button>
-    <input type="range" id="volumeControl" value="100" onchange="adjustVolume()">
-</div>
-
-
-}
-
 
 </body>
 
 </html>
+
