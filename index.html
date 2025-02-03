@@ -307,7 +307,20 @@
     <input type="range" id="volumeControl" value="100" onchange="adjustVolume()">
 </div>
 
-    
+function toggleLoop() {
+    var audioPlayer = document.getElementById('audioPlayer');
+    var loopButton = document.getElementById('loopButton');
+
+    audioPlayer.loop = !audioPlayer.loop; // Toggle loop state
+
+    if (audioPlayer.loop) {
+        loopButton.style.backgroundColor = "#1abc9c"; // Highlight button when looping
+    } else {
+        loopButton.style.backgroundColor = "#2980b9"; // Default color when looping is off
+    }
+}
+
+
 </body>
 
 </html>
