@@ -17,6 +17,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            text-align: center;
         }
 
         nav {
@@ -26,7 +27,6 @@
             background-color: #2980b9;
             color: white;
             padding: 10px;
-            text-align: center;
             display: flex;
             justify-content: space-between;
             z-index: 1000;
@@ -42,10 +42,10 @@
             font-size: 50px;
             cursor: pointer;
             margin-top: 10px;
-            align-items: center;
             display: flex;
             justify-content: center;
-            text-align: center;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
         #audioPlayer {
@@ -58,7 +58,6 @@
             display: none;
             justify-content: center;
             margin-top: 10px;
-            align-items: center;
         }
 
         .controlButton {
@@ -124,28 +123,6 @@
             margin-left: 10px;
             cursor: pointer;
         }
-
-        /* Center the loop button */
-        #loopButton {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #loopIcon {
-            font-size: 30px;
-        }
-
-        .activeLoop {
-            color: #e74c3c;
-        }
-
-        /* Center the upload button */
-        #customButton {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
     </style>
 </head>
 
@@ -180,11 +157,6 @@
                 Skip Forward <i class="fa-solid fa-forward"></i>
             </button>
             <input type="range" id="volumeControl" value="100" onchange="adjustVolume()">
-            <div id="loopButton">
-                <button class="controlButton" onclick="toggleLoop()">
-                    <i id="loopIcon" class="fa-solid fa-sync-alt"></i> Loop
-                </button>
-            </div>
         </div>
 
         <div id="fileTitle"></div>
@@ -197,8 +169,6 @@
 
     <script>
         const recentSongsList = document.getElementById('musicList');
-        let currentSongIndex = -1;
-        const recentSongs = [];
 
         function addToRecentSongs(title, url) {
             const listItem = document.createElement('li');
@@ -231,10 +201,7 @@
             uploadButtonNavbar.style.display = 'block';
             fileTitle.innerText = 'Now playing: ' + file.name;
 
-            recentSongs.push({ title: file.name, url: objectURL });
             addToRecentSongs(file.name, objectURL);
-
-            currentSongIndex = recentSongs.length - 1; // Set current song index to the newly added song
         });
 
         function skipSeconds(seconds) {
@@ -305,36 +272,11 @@
             playPauseIcon.classList.remove('fa-play');
             playPauseIcon.classList.add('fa-pause');
         }
-
-        function toggleLoop() {
-            var audioPlayer = document.getElementById('audioPlayer');
-            var loopIcon = document.getElementById('loopIcon');
-
-            if (audioPlayer.loop) {
-                audioPlayer.loop = false;
-                loopIcon.classList.remove('fa-sync-alt');
-                loopIcon.classList.add('fa-sync');
-                loopIcon.classList.remove('activeLoop');
-            } else {
-                audioPlayer.loop = true;
-                loopIcon.classList.remove('fa-sync');
-                loopIcon.classList.add('fa-sync-alt');
-                loopIcon.classList.add('activeLoop');
-            }
-        }
-
-        // Automatically play the next song when the current one ends
-        document.getElementById('audioPlayer').addEventListener('ended', function () {
-            if (currentSongIndex < recentSongs.length - 1) {
-                currentSongIndex++;
-                const nextSong = recentSongs[currentSongIndex];
-                playRecentSong(nextSong.title, nextSong.url);
-            }
-        });
     </script>
 
 </body>
 
 </html>
+
 
 
